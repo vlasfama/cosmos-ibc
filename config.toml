@@ -1,0 +1,79 @@
+# Global settings for Hermes
+[global]
+log_level = "info" # Logging level: "error", "warn", "info", "debug", "trace"
+
+# Mode configuration: Define relayer behavior
+[mode.clients]
+enabled = true      # Enable client updates
+refresh = true      # Periodic refresh of clients
+misbehaviour = true # Detect misbehaviors
+
+[mode.connections]
+enabled = true # Enable connection workers
+
+[mode.channels]
+enabled = true # Enable channel workers
+
+[mode.packets]
+enabled = true          # Enable packet relaying
+clear_interval = 100    # Number of blocks before clearing packets
+clear_on_start = true   # Clear pending packets on start
+tx_confirmation = false # Disable tx confirmation mechanism
+
+# REST API configuration
+[rest]
+enabled = false    # Disable REST API (set to true to enable)
+host = "127.0.0.1" # REST API host
+port = 3000        # REST API port
+
+# Telemetry configuration
+[telemetry]
+enabled = false    # Disable telemetry (set to true to enable)
+host = "127.0.0.1" # Telemetry host
+port = 3001        # Telemetry port
+
+# Configuration for ChainA
+[[chains]]
+id = "chainA"                                                            # Chain ID for ChainA
+rpc_addr = "http://127.0.0.1:26657"                                      # RPC endpoint for ChainA
+grpc_addr = "http://127.0.0.1:9090"                                      # gRPC endpoint for ChainA
+event_source = { mode = "push", url = "ws://127.0.0.1:26657/websocket" } # Use WebSocket for events
+rpc_timeout = "10s"                                                      # Timeout for RPC requests
+trusted_node = false                                                     # Do not trust the node blindly
+account_prefix = "cosmos"                                                # Account address prefix
+key_name = "alice"                                                       # Key name added to Hermes
+key_store_type = "Memory"                                                # Keyring backend: "Memory"
+store_prefix = "ibc"                                                     # Store prefix for IBC module
+gas_price = { price = 0.025, denom = "stake" }                           # Gas price for transactions
+gas_multiplier = 1.1                                                     # Multiplier for gas estimation
+default_gas = 100000                                                     # Default gas amount if estimation fails
+max_gas = 4000000                                                        # Maximum gas per transaction
+max_msg_num = 30                                                         # Maximum number of messages per transaction
+max_tx_size = 2097152                                                    # Maximum transaction size (bytes)
+clock_drift = "5s"                                                       # Allowable clock drift
+max_block_time = "30s"                                                   # Maximum block time
+trusting_period = "14days"                                               # Trusting period for light clients
+trust_threshold = "2/3"                                                  # Trust threshold for light clients
+
+# Configuration for ChainB
+[[chains]]
+id = "chainB"                                                            # Chain ID for ChainB
+rpc_addr = "http://127.0.0.1:36657"                                      # RPC endpoint for ChainB
+grpc_addr = "http://127.0.0.1:9190"                                      # gRPC endpoint for ChainB
+event_source = { mode = "push", url = "ws://127.0.0.1:36657/websocket" } # Use WebSocket for events
+rpc_timeout = "10s"                                                      # Timeout for RPC requests
+trusted_node = false                                                     # Do not trust the node blindly
+account_prefix = "cosmos"                                                # Account address prefix
+key_name = "bob"                                                         # Key name added to Hermes
+key_store_type = "Memory"                                                # Keyring backend: "Memory"
+store_prefix = "ibc"                                                     # Store prefix for IBC module
+gas_price = { price = 0.025, denom = "stake" }                           # Gas price for transactions
+gas_multiplier = 1.1                                                     # Multiplier for gas estimation
+default_gas = 100000                                                     # Default gas amount if estimation fails
+max_gas = 4000000                                                        # Maximum gas per transaction
+max_msg_num = 30                                                         # Maximum number of messages per transaction
+max_tx_size = 2097152                                                    # Maximum transaction size (bytes)
+clock_drift = "5s"                                                       # Allowable clock drift
+max_block_time = "30s"                                                   # Maximum block time
+trusting_period = "14days"                                               # Trusting period for light clients
+trust_threshold = "2/3"                                                  # Trust threshold for light clients
